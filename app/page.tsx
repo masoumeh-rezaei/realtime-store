@@ -1,4 +1,4 @@
-"use client";
+
 
 import ProductList from "@/components/product/ProductList";
 import Link from "next/link";
