@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Product } from "@/types/product";
-import {productSchema, ProductFormInput} from '@/lib/validations/productSchema'
+import { productSchema, ProductFormInput, ProductFormOutput } from "@/lib/validations/productSchema";
 import { useAppDispatch } from "./ redux";
 import { addProduct, updateProduct } from "@/redux/slices/productSlice";
 
@@ -16,41 +16,50 @@ interface UseProductFormProps {
 export const useProductForm = ({ editingProduct, onFinish }: UseProductFormProps) => {
     const dispatch = useAppDispatch();
 
-    const form = useForm<ProductFormInput>({
-        resolver: zodResolver(productSchema) as never,
+    // Setup form with Zod validation
+    const form = useForm<ProductFormInput, never, ProductFormOutput>({
+        resolver: zodResolver(productSchema),
         defaultValues: {
             name: "",
-            price: undefined,
-            stock: undefined,
+            price: "",
+            stock: "",
             description: "",
         },
     });
 
     const { reset, handleSubmit } = form;
 
-    // Prefill form if editing
+    // If editingProduct exists prefill form with its values
     useEffect(() => {
         if (editingProduct) {
-            reset(editingProduct);
+            reset({
+                ...editingProduct,
+                price: editingProduct.price?.toString() ?? "",
+                stock: editingProduct.stock?.toString() ?? "",
+                description: editingProduct.description ?? "",
+            });
         }
     }, [editingProduct, reset]);
 
+    // Handle form submit (create or update product)
     const onSubmit = handleSubmit((data) => {
-        // تبدیل type-safe برای اطمینان از number بودن فیلدها
-        const formData: ProductFormInput = {
-            name: data.name,
-            price: Number(data.price ?? 0),
-            stock: Number(data.stock ?? 0),
-            description: data.description,
-        };
-
         if (editingProduct) {
-            dispatch(updateProduct({ ...editingProduct, ...formData }));
+            // Update existing product
+            dispatch(updateProduct({ ...editingProduct, ...data }));
         } else {
-            dispatch(addProduct({ ...formData, id: Date.now().toString() }));
+            // Add new product with generated id
+            dispatch(addProduct({ ...data, id: Date.now().toString() }));
         }
 
-        reset();
+        // Reset form after submit
+        reset({
+            name: "",
+            price: "",
+            stock: "",
+            description: "",
+        });
+
+        // Callback after finishing submit
         onFinish();
     });
 

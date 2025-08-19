@@ -1,27 +1,30 @@
-"use client"; // must be client component
+"use client";
 
+import React, { useState } from "react";
 import { useAppSelector } from "@/hooks/ redux";
-import { useState } from "react";
-import ProductForm from "@/components/product/ProductForm";
-import ProductTable from "@/components/product/ProductTable";
 import { Product } from "@/types/product";
+
+import HeaderSection from "@/components/admin/HeaderSection";
+import WelcomeCard from "@/components/admin/WelcomeCard";
+import FormSection from "@/components/admin/FormSection";
+import TableSection from "@/components/admin/TableSection";
 
 export default function AdminPage() {
     const products = useAppSelector((state) => state.product.products);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
     return (
-        <div className="max-w-4xl mx-auto py-6">
-            <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 space-y-8">
+                <HeaderSection />
 
-            {/* Form for Add/Edit */}
-            <ProductForm
-                editingProduct={editingProduct}
-                onFinish={() => setEditingProduct(null)}
-            />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <FormSection editingProduct={editingProduct} setEditingProduct={setEditingProduct} />
+                    <WelcomeCard />
+                </div>
 
-            {/* Product Table */}
-            <ProductTable products={products} onEdit={(p) => setEditingProduct(p)} />
+                <TableSection products={products} onEdit={(p) => setEditingProduct(p)} />
+            </div>
         </div>
     );
 }

@@ -15,7 +15,7 @@ export default function Form({
                 e.preventDefault();
                 onSubmit(e);
             }}
-            className={`space-y-4 ${className}`}
+            className={`w-full max-w-lg mx-auto p-6 md:p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg space-y-6 ${className}`}
             {...props}
         >
             {children}

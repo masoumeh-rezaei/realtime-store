@@ -11,21 +11,26 @@ export default function Input({
                                   ...props
                               }: InputProps) {
     return (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2 w-full">
             {label && (
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-semibold text-gray-800 tracking-wide">
                     {label}
                 </label>
             )}
             <input
                 className={clsx(
-                    "border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200",
-                    error ? "border-red-500" : "border-gray-300",
+                    "w-full rounded-xl border px-4 py-2.5 text-gray-900 bg-white shadow-sm",
+                    "focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400",
+                    "transition-all duration-200 ease-in-out",
+                    error ? "border-red-500 focus:ring-red-400" : "border-gray-300",
+                    "placeholder:text-gray-400 placeholder:italic",
                     className
                 )}
                 {...props}
             />
-            {error && <span className="text-xs text-red-500">{error}</span>}
+            {error && (
+                <span className="text-xs font-medium text-red-500">{error}</span>
+            )}
         </div>
     );
 }
