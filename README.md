@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Product Management System
 
-## Getting Started
+## 🎯 هدف پروژه
+این پروژه برای ارزیابی توانایی فنی در توسعه برنامه‌های وب مدرن با **Next.js** طراحی شده است.  
+هدف اصلی: پیاده‌سازی یک سیستم کوچک مدیریت محصول با قابلیت **Real-time** و رعایت اصول **Clean Code و SOLID**.
 
-First, run the development server:
+---
 
+## 📋 شرح پروژه
+پروژه شامل دو بخش اصلی است:
+
+### پنل مدیریت (Admin Panel)
+- افزودن، ویرایش و حذف محصولات
+- نمایش لیست محصولات (نام، قیمت، موجودی)
+- اعتبارسنجی فرم‌ها (خالی نبودن یا عددی بودن قیمت و موجودی)
+
+### ویترین فروشگاه (Storefront)
+- نمایش محصولات به صورت کارت (نام، قیمت، موجودی)
+- به‌روزرسانی **Real-time** هنگام تغییرات در پنل مدیریت بدون رفرش صفحه
+
+---
+
+## ⚙️ نیازمندی‌های فنی
+
+- **فریم‌ورک:** Next.js (App Router)  
+- **زبان:** TypeScript  
+- **مدیریت وضعیت:** Redux Toolkit  
+- **استایل‌دهی:** Tailwind CSS  
+- **ارتباط Real-time:** شبیه‌سازی با state مشترک و subscription داخلی
+
+---
+
+## 🛠️ ویژگی‌ها و تصمیمات فنی کلیدی
+
+1. **مدیریت وضعیت با Redux Toolkit:**  
+   - طراحی Slice و Reducerها برای محصولات
+   - مدیریت state به صورت مرکزی و جلوگیری از داده‌های تکراری
+
+2. **کامپوننت‌ها و هوک‌ها:**  
+   - استفاده از کامپوننت‌های قابل استفاده مجدد (Reusable)
+   - پیاده‌سازی هوک‌های سفارشی برای فرم‌ها و عملیات CRUD
+
+3. **ارتباط Real-time:**  
+   - استفاده از state مشترک در Redux و subscription داخلی برای منعکس کردن تغییرات بدون رفرش
+
+4. **اعتبارسنجی فرم‌ها:**  
+   - استفاده از `react-hook-form` و `zod` برای اعتبارسنجی و تبدیل داده‌ها
+   - جلوگیری از ارسال فرم با داده‌های خالی یا نامعتبر
+
+5. **UI/UX:**  
+   - طراحی واکنش‌گرا (Responsive) با Tailwind CSS
+   - کارت‌های محصولات با نمایش قیمت و موجودی
+   - دکمه‌ها و فرم‌ها با استایل مدرن و کاربرپسند
+
+---
+
+## 📝 نصب و اجرا
+
+1. کلون کردن پروژه:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone <repository-url>
+cd <project-folder>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+نصب وابستگی ها   npm install
+ اجرای پروژه در حالت توسعه: npm run dev
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
